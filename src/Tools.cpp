@@ -416,20 +416,6 @@ namespace {
         return GameManager::sharedState();
     }
 
-    // Maps a user-facing form name to GameManager's icon-type field.
-    IconType formToIconType(std::string const& form) {
-        auto f = lowerStr(form);
-        if (f == "cube") return IconType::Cube;
-        if (f == "ship") return IconType::Ship;
-        if (f == "ball" || f == "roll") return IconType::Ball;
-        if (f == "ufo" || f == "bird") return IconType::Bird;
-        if (f == "wave" || f == "dart") return IconType::Dart;
-        if (f == "robot") return IconType::Robot;
-        if (f == "spider") return IconType::Spider;
-        if (f == "swing") return IconType::Swing;
-        throw Fail{"form must be one of: cube, ship, ball, ufo, wave, robot, spider, swing."};
-    }
-
     int currentIconID(GameManager* g, std::string const& form) {
         auto f = lowerStr(form);
         if (f == "cube") return g->m_playerFrame;
@@ -943,9 +929,8 @@ namespace {
         for (auto it : items) {
             if (!it->isVisible() || !it->isEnabled()) continue;
             auto box = it->boundingBox();
-            auto parent = it->getParent();
-            if (!parent) continue;
-            auto worldBox = parent->convertRectToWorldSpace(box);
+            auto transform = it->nodeToWorldTransform();
+            auto worldBox = CCRectApplyAffineTransform(box, transform);
             if (worldBox.containsPoint(point)) {
                 it->activate();
                 return {matjson::makeObject({{"clicked", true}, {"hitButtonTag", it->getTag()}}), ""};
