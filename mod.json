@@ -1,0 +1,40 @@
+{
+	"geode": "5.11.2",
+	"gd": {
+		"android": "2.2081"
+	},
+	"version": "v1.0.0",
+	"id": "vinz.gd-mcp",
+	"name": "GD MCP",
+	"developer": "Vinz",
+	"description": "Full remote control of Geometry Dash over MCP: Claude, ChatGPT and any MCP client can change your icon/colors, click buttons, play levels and build/edit levels.",
+	"tags": ["editor", "utility"],
+	"settings": {
+		"auto-start": {
+			"type": "bool",
+			"name": "Auto-start server",
+			"description": "Start the MCP server when the game launches.",
+			"default": true
+		},
+		"port": {
+			"type": "int",
+			"name": "Port",
+			"description": "TCP port of the MCP server. Restart the game after changing.",
+			"default": 8766,
+			"min": 1024,
+			"max": 65535
+		},
+		"bind-all": {
+			"type": "bool",
+			"name": "Listen on all interfaces",
+			"description": "OFF = only this device (127.0.0.1, use a tunnel for Claude/ChatGPT). ON = reachable from your LAN. Restart the game after changing.",
+			"default": false
+		},
+		"token": {
+			"type": "string",
+			"name": "Secret token",
+			"description": "Required to talk to the server. Auto-generated on first launch (restart the game after changing). Use it as Bearer token or in the URL: /mcp/<token>. Keep it private!",
+			"default": ""
+		}
+	}
+}
